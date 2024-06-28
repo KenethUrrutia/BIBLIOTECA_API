@@ -1,13 +1,22 @@
 from flask import Flask
 from flask_restx import Resource, Api
+from src.common.utils import db, ma
+from src.routes.routes import Routes
+import os
+
 
 app = Flask(__name__)
-api = Api(app)
 
-@api.route('/hello')
-class HelloWorld(Resource):
-    def get(self):
-        return {'hello': 'world'}
+if os.environ.get('FLASK_ENV') == 'development':
+    app.config.from_object("settings.DeveloperConfig")    
+elif os.environ.get('FLASK_ENV') == 'production':
+    app.config.from_object("settings.ProductionConfig")
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+api = Api(app, prefix='/api/v1')
+
+db.init_app(app)
+ma.init_app(app)
+
+
+Routes(api)
