@@ -7,8 +7,8 @@ class PrestamoSchema(ma.SQLAlchemyAutoSchema):
         model = PrestamoModel
         ordered = True
         load_instance = True
-        # include_fk = True
-        # include_relationships = True
+        include_fk = True
+        include_relationships = True
 
 class PrestamoSchemaValidar(ma.SQLAlchemyAutoSchema):
     IDUSUARIO = fields.Integer(required=True, validate=validate.Range(min=1))

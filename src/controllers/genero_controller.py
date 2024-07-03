@@ -5,6 +5,7 @@ from flask_restx import Resource
 from flask import request
 from src.models.genero_model import GeneroModel
 from marshmallow import ValidationError
+from sqlalchemy.exc import IntegrityError
 
 
 class GeneroController(Resource):
@@ -71,6 +72,8 @@ class GeneroControllerDelete(Resource):
             db.session.delete(generodb)
             db.session.commit()
             return {'message': 'Genero eliminado'}, 200
+        except IntegrityError:
+            return {'message': 'No se puede eliminar el genero porque esta siendo usado'}, 400
         except NoResultFound:
             return {'message': 'Genero no encontrado'}, 404
         except Exception as e:

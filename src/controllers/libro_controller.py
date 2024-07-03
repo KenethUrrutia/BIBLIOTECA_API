@@ -5,6 +5,8 @@ from flask_restx import Resource
 from src.schemas.libro_schema import LibroSchema, LibroSchemaValidar
 from sqlalchemy.orm.exc import NoResultFound
 from marshmallow import ValidationError
+# from src.models.prestamo_model import PrestamoModel
+from sqlalchemy.exc import IntegrityError
 
 
 class LibroController(Resource):
@@ -73,9 +75,15 @@ class LibroControllerDelete(Resource):
     def delete(self, idlibro):
         try:
             librodb = db.session.execute(db.select(LibroModel).where(LibroModel.IDLIBRO == idlibro)).scalar_one()
+            
+            if librodb.PRESTAMO != []:
+                return {'message': 'libro tiene prestamos asociados'}, 400
+            
             db.session.delete(librodb)
             db.session.commit()
             return {'message': 'libro eliminado'}, 200
+        except IntegrityError:
+            return {'message': 'libro no se puede eliminar porque tiene registros asociados'}, 400
         except NoResultFound:
             return {'message': 'libro no encontrado'}, 404
         except Exception as e:

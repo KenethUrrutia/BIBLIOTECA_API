@@ -7,7 +7,7 @@ class EstadoSchema(ma.SQLAlchemyAutoSchema):
         model = EstadoModel
         ordered = True
         load_instance = True
-        #include_relationships = True
+        include_relationships = True
         #foreign_keys = True
 
 class EstadoSchemaValidar(ma.SQLAlchemyAutoSchema):

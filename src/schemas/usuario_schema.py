@@ -7,8 +7,9 @@ class UsuarioSchema(ma.SQLAlchemyAutoSchema):
         model = UsuarioModel
         ordered = True
         load_instance = True
-        #include_relationships = True
+        include_relationships = True
         #foreign_keys = True
+    PRESTAMO = fields.Nested('PrestamoSchema', many=True) 
 
 class UsuarioSchemaValidar(ma.SQLAlchemyAutoSchema):
     IDUSUARIO = fields.Integer(required=True)

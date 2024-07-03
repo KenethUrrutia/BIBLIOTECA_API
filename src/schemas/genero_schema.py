@@ -7,8 +7,9 @@ class GeneroSchema(ma.SQLAlchemyAutoSchema):
         model = GeneroModel
         ordered = True
         load_instance = True
-        #include_relationships = True
+        include_relationships = True
         #foreign_keys = True
+    #LIBROS = fields.Nested('LibroSchema', many=True)
 
 class GeneroSchemaValidar(ma.SQLAlchemyAutoSchema):
     IDGENERO = fields.Integer(required=True)

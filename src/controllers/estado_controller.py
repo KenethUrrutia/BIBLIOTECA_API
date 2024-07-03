@@ -5,6 +5,7 @@ from flask_restx import Resource
 from flask import request
 from src.models.estado_model import EstadoModel
 from marshmallow import ValidationError
+from sqlalchemy.exc import IntegrityError
 
 
 class EstadoController(Resource):
@@ -70,6 +71,8 @@ class EstadoControllerDelete(Resource):
             db.session.delete(estadodb)
             db.session.commit()
             return {'message': 'estado eliminado'}, 200
+        except IntegrityError:
+            return {'message': 'estado no se puede eliminar porque tiene registros asociados'}, 400
         except NoResultFound:
             return {'message': 'estado no encontrado'}, 404
         except Exception as e:

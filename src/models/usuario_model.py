@@ -1,6 +1,8 @@
 from src.common.utils import db
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Integer
+from .prestamo_model import PrestamoModel
+from typing import List
 
 class UsuarioModel(db.Model):
     __tablename__ = 'USUARIO'
@@ -11,3 +13,4 @@ class UsuarioModel(db.Model):
     CORREO: Mapped[str] = mapped_column(nullable=False)
     PASSWORD: Mapped[str] = mapped_column(nullable=False)
 
+    PRESTAMO: Mapped[List[PrestamoModel]] = relationship(back_populates='USUARIO')
