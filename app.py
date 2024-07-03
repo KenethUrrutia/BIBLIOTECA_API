@@ -1,6 +1,5 @@
 from flask import Flask
-from flask_restx import Resource, Api
-from src.common.utils import db, ma, jwt
+from src.common.utils import db, ma, jwt, api
 from src.routes.routes import Routes
 import os
 
@@ -13,8 +12,7 @@ elif os.environ.get('FLASK_ENV') == 'production':
     app.config.from_object("settings.ProductionConfig")
 
 
-api = Api(app, prefix='/api/v1')
-
+api.init_app(app)
 db.init_app(app)
 ma.init_app(app)
 jwt.init_app(app)

@@ -9,6 +9,9 @@ class EstadoSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
         include_relationships = True
         #foreign_keys = True
+        exclude = ('PRESTAMO',)
+        
+    PRESTAMO = fields.Nested('PrestamoSchema', many=True)    
 
 class EstadoSchemaValidar(ma.SQLAlchemyAutoSchema):
     IDESTADO = fields.Integer(required=True)

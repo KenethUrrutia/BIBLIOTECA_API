@@ -9,7 +9,8 @@ class GeneroSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
         include_relationships = True
         #foreign_keys = True
-    #LIBROS = fields.Nested('LibroSchema', many=True)
+        exclude = ('LIBROS',)
+    LIBROS = fields.Nested('LibroSchema', many=True)
 
 class GeneroSchemaValidar(ma.SQLAlchemyAutoSchema):
     IDGENERO = fields.Integer(required=True)

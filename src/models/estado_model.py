@@ -9,4 +9,4 @@ class EstadoModel(db.Model):
     IDESTADO: Mapped[int] = mapped_column( primary_key=True)
     NOMBRE: Mapped[str] = mapped_column(nullable=False)
 
-    PRESTAMO: Mapped[List["PrestamoModel"]] = relationship(back_populates='ESTADO_PRESTAMO')
+    PRESTAMO: Mapped[List["PrestamoModel"]] = relationship(back_populates='ESTADO_LIBRO')

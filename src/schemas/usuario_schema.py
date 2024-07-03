@@ -9,7 +9,7 @@ class UsuarioSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
         include_relationships = True
         #foreign_keys = True
-        exclude = ('PASSWORD', 'PRESTAMO')
+        exclude = ('PRESTAMO',)
     PRESTAMO = fields.Nested('PrestamoSchema', many=True) 
 
 class UsuarioSchemaValidar(ma.SQLAlchemyAutoSchema):

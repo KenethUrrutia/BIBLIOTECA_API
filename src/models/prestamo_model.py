@@ -18,5 +18,5 @@ class PrestamoModel(db.Model):
 
     USUARIO: Mapped[List["UsuarioModel"]] = relationship(back_populates='PRESTAMO')
     LIBROS: Mapped[List[LibroModel]] = relationship(back_populates='PRESTAMO')
-    ESTADO_PRESTAMO: Mapped[EstadoModel] = relationship(back_populates='PRESTAMO')
+    ESTADO_LIBRO: Mapped[EstadoModel] = relationship(back_populates='PRESTAMO')
 
