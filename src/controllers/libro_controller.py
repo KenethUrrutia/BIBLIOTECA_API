@@ -7,9 +7,10 @@ from sqlalchemy.orm.exc import NoResultFound
 from marshmallow import ValidationError
 # from src.models.prestamo_model import PrestamoModel
 from sqlalchemy.exc import IntegrityError
-
+from flask_jwt_extended import jwt_required
 
 class LibroController(Resource):
+    @jwt_required()
     def get(self):
         try:
             librodb = db.session.execute(db.select(LibroModel)).scalars()
@@ -21,6 +22,7 @@ class LibroController(Resource):
             return {'message': str(e)}, 500
 
 class LibroControllerGetById(Resource):
+    @jwt_required()
     def get(self, idlibro):
         try:
             librodb = db.session.execute(db.select(LibroModel).where(LibroModel.IDLIBRO == idlibro)).scalar_one()
@@ -32,6 +34,7 @@ class LibroControllerGetById(Resource):
             return {'message': str(e)}, 500
 
 class LibroControllerPost(Resource):
+    @jwt_required()
     def post(self):
         try:
             libroValidar = LibroSchemaValidar(exclude=['IDLIBRO'])
@@ -49,6 +52,7 @@ class LibroControllerPost(Resource):
             return {'message': str(e)}, 500
 
 class LibroControllerPut(Resource):
+    @jwt_required()
     def put(self):
         try:
             libroValidar = LibroSchemaValidar()
@@ -72,6 +76,7 @@ class LibroControllerPut(Resource):
             return {'message': str(e)}, 500
 
 class LibroControllerDelete(Resource):
+    @jwt_required()
     def delete(self, idlibro):
         try:
             librodb = db.session.execute(db.select(LibroModel).where(LibroModel.IDLIBRO == idlibro)).scalar_one()

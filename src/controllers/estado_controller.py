@@ -6,9 +6,11 @@ from flask import request
 from src.models.estado_model import EstadoModel
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
+from flask_jwt_extended import jwt_required
 
 
 class EstadoController(Resource):
+    @jwt_required()
     def get(self):
         try: 
             estadosdb = db.session.execute(db.select(EstadoModel)).scalars()
@@ -20,6 +22,7 @@ class EstadoController(Resource):
             return {'message': str(e)}, 500
 
 class EstadoControllerGetById(Resource):
+    @jwt_required()
     def get(self, idestado):
         try: 
             estadodb = db.session.execute(db.select(EstadoModel).where(EstadoModel.IDESTADO == idestado)).scalar_one()
@@ -31,6 +34,7 @@ class EstadoControllerGetById(Resource):
             return {'message': str(e)}, 500
 
 class EstadoControllerPost(Resource):
+    @jwt_required()
     def post(self):
         try:
             estadoValidar = EstadoSchemaValidar(exclude=['IDESTADO']).load(request.json)
@@ -47,6 +51,7 @@ class EstadoControllerPost(Resource):
             return {'message': str(e)}, 500
 
 class EstadoControllerPut(Resource):
+    @jwt_required()
     def put(self):
         try:
             estadoValidar = EstadoSchemaValidar()
@@ -65,6 +70,7 @@ class EstadoControllerPut(Resource):
             return {'message': str(e)}, 500
 
 class EstadoControllerDelete(Resource):
+    @jwt_required()
     def delete(self, idestado):
         try:
             estadodb = db.session.execute(db.select(EstadoModel).where(EstadoModel.IDESTADO == idestado)).scalar_one()

@@ -6,9 +6,12 @@ from flask import request
 from src.models.genero_model import GeneroModel
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
+from flask_jwt_extended import jwt_required
+
 
 
 class GeneroController(Resource):
+    @jwt_required()
     def get(self):
         try: 
             generosdb = db.session.execute(db.select(GeneroModel)).scalars()
@@ -20,6 +23,7 @@ class GeneroController(Resource):
             return {'message': str(e)}, 500
 
 class GeneroControllerGetById(Resource):
+    @jwt_required()
     def get(self, idgenero):
         try: 
             generodb = db.session.execute(db.select(GeneroModel).where(GeneroModel.IDGENERO == idgenero)).scalar_one()
@@ -31,6 +35,7 @@ class GeneroControllerGetById(Resource):
             return {'message': str(e)}, 500
 
 class GeneroControllerPost(Resource):
+    @jwt_required()
     def post(self):
         try:
             generoValidar = GeneroSchemaValidar(exclude=['IDGENERO'])
@@ -48,6 +53,7 @@ class GeneroControllerPost(Resource):
             return {'message': str(e)}, 500
 
 class GeneroControllerPut(Resource):
+    @jwt_required()
     def put(self):
         try:
             generoValidar = GeneroSchemaValidar()
@@ -66,6 +72,7 @@ class GeneroControllerPut(Resource):
             return {'message': str(e)}, 500
 
 class GeneroControllerDelete(Resource):
+    @jwt_required()
     def delete(self, idgenero):
         try:
             generodb = db.session.execute(db.select(GeneroModel).where(GeneroModel.IDGENERO == idgenero)).scalar_one()

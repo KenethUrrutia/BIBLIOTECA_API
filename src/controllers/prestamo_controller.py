@@ -11,9 +11,11 @@ from flask import request
 from flask_restx import Resource
 from sqlalchemy.orm.exc import NoResultFound
 from marshmallow import ValidationError
+from flask_jwt_extended import jwt_required
 
 
 class PrestamoController(Resource):
+    @jwt_required()
     def get(self):
         try:
             prestamodb = db.session.execute(db.select(PrestamoModel)).scalars()
@@ -25,10 +27,11 @@ class PrestamoController(Resource):
             return {'message': str(e)}, 500
 
 class PrestamoControllerPost(Resource):
+    @jwt_required()
     def post(self):
         try:
             prestamoValidar = PrestamoSchemaValidar(exclude=['IDPRESTAMO']).load(request.json["PRESTAMO"] )
-            usuarioValidar = UsuarioSchemaValidar().load(request.json["USUARIO"])
+            usuarioValidar = UsuarioSchemaValidar(exclude=["PASSWORD"]).load(request.json["USUARIO"])
             libroValidar = LibroSchemaValidar().load(request.json["LIBRO"])
             estadoValidar = EstadoSchemaValidar().load(request.json["ESTADO"])
             

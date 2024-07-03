@@ -8,6 +8,9 @@ class BaseConfig ():
     #cargar environment
     load_dotenv(dotenv_path, override=True)
 
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    JWT_SECRET_KEY = SECRET_KEY
+
     SQLALCHEMY_DATABASE_URI = ''
 
 class DeveloperConfig (BaseConfig):

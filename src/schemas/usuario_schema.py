@@ -9,6 +9,7 @@ class UsuarioSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
         include_relationships = True
         #foreign_keys = True
+        exclude = ('PASSWORD', 'PRESTAMO')
     PRESTAMO = fields.Nested('PrestamoSchema', many=True) 
 
 class UsuarioSchemaValidar(ma.SQLAlchemyAutoSchema):
@@ -18,3 +19,7 @@ class UsuarioSchemaValidar(ma.SQLAlchemyAutoSchema):
     EDAD = fields.Integer(required=True, validate=validate.Range(min=18, max=100))
     CORREO = fields.String(required=True, validate=validate.Email())
     PASSWORD = fields.String(required=True, validate=validate.Length(min=1, max=20)) 
+
+class UsuarioSchemaLogin(ma.SQLAlchemyAutoSchema):
+    CORREO = fields.String(required=True, validate=validate.Email())
+    PASSWORD = fields.String(required=True, validate=validate.Length(min=1, max=20))
