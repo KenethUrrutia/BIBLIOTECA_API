@@ -51,7 +51,7 @@ class PrestamoController(Resource):
             prestamoValidar = PrestamoSchema()
             prestamo = prestamoValidar.load(request.json["PRESTAMO"])
 
-            usuarioValidar = UsuarioSchema(transient =True)
+            usuarioValidar = UsuarioSchema(transient =True, exclude=["PASSWORD"])
             usuario = usuarioValidar.load(request.json["USUARIO"])
 
             libroValidar = LibroSchema(transient =True)

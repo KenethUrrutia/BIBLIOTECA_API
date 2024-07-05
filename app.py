@@ -10,6 +10,9 @@ if os.environ.get('FLASK_ENV') == 'development':
     app.config.from_object("settings.DeveloperConfig")    
 elif os.environ.get('FLASK_ENV') == 'production':
     app.config.from_object("settings.ProductionConfig")
+elif os.environ.get('FLASK_ENV') == 'testing':
+    app.config.from_object("settings.TestingConfig")
+    
 
 
 api.init_app(app)
