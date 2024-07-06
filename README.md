@@ -54,7 +54,7 @@ Este comando crea una imagen Docker llamada `bibliotecaapi:1.0` utilizando el Do
 #### 2. Ejecutar el contenedor
 
 ```bash
-docker run -d --name api_biblioteca -p 5001:5000 bibliotecaapi:1.0
+docker run --rm -d --name api_biblioteca -p 5001:5000 bibliotecaapi:1.0
 ```
 
 Este comando ejecuta la imagen `bibliotecaapi:1.0` en modo desprendido (`-d`) y asigna un nombre (`api_biblioteca`) al contenedor. También mapea el puerto 5000 del contenedor al puerto 5001 de su host (`-p 5001:5000`), lo que le permite acceder a la API en `http://localhost:5001`.
