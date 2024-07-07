@@ -27,9 +27,9 @@ Cree un archivo llamado `.env` en el directorio raíz del proyecto. Este archivo
 
 ```
 # Cadenas de conexión de base de datos (reemplace con sus valores reales)
-DEV_DATABASE_URL=mysql://root:su_contraseña@localhost:3036/BIBLIOTECADB
-PROD_DATABASE_URL=mysql://root:su_contraseña@x.x.x.x:3036/BIBLIOTECADB
-TEST_DATABASE_URL=mysql://root:su_contraseña@x.x.x.x:3036/BIBLIOTECADBTEST
+DEV_DATABASE_URI=mysql://root:su_contraseña@localhost:3036/BIBLIOTECADB
+PROD_DATABASE_URI=mysql://root:su_contraseña@x.x.x.x:3036/BIBLIOTECADB
+TEST_DATABASE_URI=mysql://root:su_contraseña@x.x.x.x:3036/BIBLIOTECADBTEST
 
 # Clave secreta (reemplace con una cadena aleatoria segura)
 SECRET_KEY='su_clave_secreta'
